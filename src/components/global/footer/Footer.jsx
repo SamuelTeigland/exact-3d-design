@@ -15,14 +15,7 @@ export default function Footer() {
                             bill@exact3design.com
                         </p>
                     </div>
-                    <div className='footer__address--container'>
-                        <h2>
-                            Phone
-                        </h2>
-                        <p>
-                            (302) 420-4440
-                        </p>
-                    </div>
+
                     <div className='footer__service--container'>
                         <h2>
                             Service Locations

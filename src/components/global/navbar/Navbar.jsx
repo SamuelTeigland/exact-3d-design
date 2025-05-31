@@ -33,10 +33,6 @@ export default function Navbar() {
                             Get a quote!
                         </button>
                     </Link>
-                    <div className='navbar__call--container'>
-                        <h2 className='navbar__call--header'>Call now!</h2>
-                        <p className='navbar__call--paragraph'>(302) 420-4440</p>
-                    </div>
                     <div className='hamburger__container' onClick={
                         () => {
                             setVisible(!isVisible);
@@ -65,10 +61,7 @@ export default function Navbar() {
                 <Link id='navbar__special--link' to='/' onClick={ () => { setVisible(!isVisible); } }>
                     Get a quote!
                 </Link>
-                <div className='hamburger__call--container'>
-                    <h2 className='hamburger__call--header'>Call now!</h2>
-                    <p className='hamburger__call--paragraph'>(302) 420-4440</p>
-                </div>
+
             </div>
         </div>
     )
