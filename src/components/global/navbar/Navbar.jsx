@@ -14,7 +14,7 @@ export default function Navbar() {
                 </a>
                 <div className='navbar__link--container'>
                     <Link to='/'>
-                        About Us
+                        About
                     </Link>
                     <Link to='/'>
                         Our Services
@@ -44,7 +44,7 @@ export default function Navbar() {
             </div>
             <div className={ isVisible === true ? 'hamburger__link--container shown__menu' : 'hamburger__link--container hidden__menu' }>
                 <Link to='/' onClick={ () => { setVisible(!isVisible); } }>
-                    About Us
+                    About
                 </Link>
                 <Link to='/' onClick={ () => { setVisible(!isVisible); } }>
                     Our Services
