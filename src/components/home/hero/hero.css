@@ -1,0 +1,100 @@
+.hero__container {
+    padding-bottom: 10rem;
+    padding-top: 10rem;
+    background: linear-gradient(to top, #364a9cd8, #364a9c2a), url(/images/3d-printing-hero.jpg) no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.hero__header {
+    font-size: 4rem;
+    text-align: center;
+    font-weight: 200;
+    color: var(--background);
+    width: 95%;
+    margin: auto;
+    padding-bottom: 2rem;
+}
+
+.hero__header span {
+    color: var(--accent-background);
+    font-style: italic;
+    font-weight: 800;
+}
+
+.hero__paragraph {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 800;
+    color: var(--background);
+    margin-top: 1rem;
+    width: 60%;
+    margin: auto;
+    line-height: 3rem;
+    padding-bottom: 2rem;
+}
+
+.hero__button--container {
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    margin: auto;
+    gap: 1rem;
+}
+
+.hero__link {
+    text-align: center;
+}
+
+.hero__button {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+@media (max-width: 985px) {
+    .hero__header {
+        font-size: 3rem;
+    }
+    
+    .hero__paragraph {
+        font-size: 1.5rem;
+        width: 95%;
+        line-height: 2.5rem;
+    }
+
+    .hero__button {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .hero__header {
+        text-align: left;
+    }
+    
+    .hero__paragraph {
+        text-align: left;
+    }
+
+    .hero__button--container {
+        display: flex;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 415px) {
+    .hero__header {
+        font-size: 3rem;
+        padding-bottom: 1rem;
+    }
+    
+    .hero__paragraph {
+        font-size: 1.5rem;
+        padding-bottom: 1rem;
+    }
+
+    .hero__button--container {
+        font-size: 1.5rem;
+    }
+}
