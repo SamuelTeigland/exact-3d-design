@@ -1,4 +1,4 @@
-import { Hero, Process } from '../components/components'
+import { Hero, Process, Benefits } from '../components/components'
 
 function Home() {
 
@@ -6,6 +6,7 @@ function Home() {
     <div>
         <Hero />
         <Process />
+        <Benefits />
     </div>
   )
 }

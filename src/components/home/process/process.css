@@ -33,13 +33,14 @@
 .process__subcontainer {
     padding: 1rem;
     width: 100%;
-    height: 20rem;
+    height: 15rem;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: start;
     flex-direction: column;
     gap: .5rem;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 #process__request {
