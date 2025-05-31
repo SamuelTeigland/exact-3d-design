@@ -79,7 +79,12 @@
 
     .hero__button--container {
         display: flex;
-        justify-content: flex-start;
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    .hero__button {
+        width: 100%;
     }
 }
 
