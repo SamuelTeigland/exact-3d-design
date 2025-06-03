@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar, Footer } from './components/components.js'
-import { Home } from './pages/pages.js'
+import { Home, About } from './pages/pages.js'
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,6 +15,7 @@ function App() {
       <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<About />} />
         </Routes>
       <Footer />
     </Router>

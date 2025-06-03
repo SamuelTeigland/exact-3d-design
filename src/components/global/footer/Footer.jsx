@@ -21,7 +21,7 @@ export default function Footer() {
                             Service Locations
                         </h2>
                         <p>
-                            All of Delaware, Eastern Maryland, Southeastern Pennsylvania.
+                            All of Delaware, Eastern Maryland, Southeastern Pennsylvania, and South Jersey.
                         </p>
                     </div>
                     <div className='footer__service--container'>
@@ -32,7 +32,7 @@ export default function Footer() {
                             Product Design & Development
                         </p>
                         <p>
-                            Architecture & Construction
+                            Marine
                         </p>
                         <p>
                             Automotive & Mechanical

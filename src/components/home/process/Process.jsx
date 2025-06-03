@@ -4,7 +4,7 @@ export default function Process() {
     return (
         <div className='process__container'>
             <div className='process__header--subcontainer'>
-                <h2 className="process__header">The way 3D design <span>should've</span> been done in the first place.</h2>
+                <h2 className="process__header">Precision-crafted printing, <span>reimagined</span>.</h2>
             </div>
             <div className='process__body--subcontainer'>
                 <div className='process__subcontainer' id='process__request'>
