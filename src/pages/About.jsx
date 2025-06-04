@@ -1,10 +1,11 @@
-import {  } from '../components/components'
+import { Services, Who } from '../components/components'
 
 function About() {
 
   return (
     <div>
-        
+        <Who />
+        <Services />
     </div>
   )
 }
