@@ -13,7 +13,7 @@ export default function Navbar() {
                     <img src="/images/3d-printing-main-logo.png" alt="Exact 3D Design Logo" className="navbar__image" />
                 </a>
                 <div className='navbar__link--container'>
-                    <Link to='/'>
+                    <Link to='/about'>
                         About
                     </Link>
                     <Link to='/'>
@@ -43,7 +43,7 @@ export default function Navbar() {
                 </div>
             </div>
             <div className={ isVisible === true ? 'hamburger__link--container shown__menu' : 'hamburger__link--container hidden__menu' }>
-                <Link to='/' onClick={ () => { setVisible(!isVisible); } }>
+                <Link to='/about' onClick={ () => { setVisible(!isVisible); } }>
                     About
                 </Link>
                 <Link to='/' onClick={ () => { setVisible(!isVisible); } }>
