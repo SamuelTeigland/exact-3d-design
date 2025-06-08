@@ -16,7 +16,7 @@ export default function Navbar() {
                     <Link to='/about'>
                         About
                     </Link>
-                    <Link to='/'>
+                    <Link to='/services'>
                         Our Services
                     </Link>
                     <Link to='/'>
@@ -46,7 +46,7 @@ export default function Navbar() {
                 <Link to='/about' onClick={ () => { setVisible(!isVisible); } }>
                     About
                 </Link>
-                <Link to='/' onClick={ () => { setVisible(!isVisible); } }>
+                <Link to='/services' onClick={ () => { setVisible(!isVisible); } }>
                     Our Services
                 </Link>
                 <Link to='/' onClick={ () => { setVisible(!isVisible); } }>
