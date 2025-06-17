@@ -25,10 +25,10 @@ export default function Navbar() {
                     <Link to="/">
                         Blog
                     </Link>
-                    <Link to="/">
+                    <Link to="/contact">
                         Contact Us
                     </Link>
-                    <Link to='/'>
+                    <Link to='/contact'>
                         <button className='button__secondary navbar__button'>
                             Get a quote!
                         </button>
@@ -55,10 +55,10 @@ export default function Navbar() {
                 <Link to="/" onClick={ () => { setVisible(!isVisible); } }>
                     Blog
                 </Link>
-                <Link to="/" onClick={ () => { setVisible(!isVisible); } }>
+                <Link to="/contact" onClick={ () => { setVisible(!isVisible); } }>
                     Contact Us
                 </Link>
-                <Link id='navbar__special--link' to='/' onClick={ () => { setVisible(!isVisible); } }>
+                <Link id='navbar__special--link' to='/contact' onClick={ () => { setVisible(!isVisible); } }>
                     Get a quote!
                 </Link>
 
