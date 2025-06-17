@@ -7,7 +7,7 @@ export default function ContactForm() {
   if (state.succeeded) {
     return (
       <div className="contact-container">
-        <h2>Contact Exact 3D Design</h2>
+        <h2>Contact Us!</h2>
         <p className="success-message">Thanks for reaching out! We’ll be in touch shortly.</p>
       </div>
     );
@@ -15,7 +15,7 @@ export default function ContactForm() {
 
   return (
     <div className="contact-container">
-      <h2>Contact Exact 3D Design</h2>
+      <h2>Contact Us!</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input id="name" type="text" name="name" required />
