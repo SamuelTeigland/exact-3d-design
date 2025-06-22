@@ -19,11 +19,8 @@ export default function Navbar() {
                     <Link to='/services'>
                         Our Services
                     </Link>
-                    <Link to='/'>
+                    <Link to='/our-work'>
                         Our Work
-                    </Link>
-                    <Link to="/">
-                        Blog
                     </Link>
                     <Link to="/contact">
                         Contact Us
@@ -49,11 +46,8 @@ export default function Navbar() {
                 <Link to='/services' onClick={ () => { setVisible(!isVisible); } }>
                     Our Services
                 </Link>
-                <Link to='/' onClick={ () => { setVisible(!isVisible); } }>
+                <Link to='/our-work' onClick={ () => { setVisible(!isVisible); } }>
                     Our Work
-                </Link>
-                <Link to="/" onClick={ () => { setVisible(!isVisible); } }>
-                    Blog
                 </Link>
                 <Link to="/contact" onClick={ () => { setVisible(!isVisible); } }>
                     Contact Us

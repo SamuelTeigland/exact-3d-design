@@ -16,3 +16,6 @@ export { default as Who } from './about/who/Who'
 
 // Services
 export { default as OurServices } from './services/ourServices/OurServices'
+
+// Our Work
+export { default as Work } from './ourWork/Work'
