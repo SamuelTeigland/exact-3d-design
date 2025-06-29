@@ -2,6 +2,7 @@
 export { default as Navbar } from './global/navbar/Navbar'
 export { default as Footer } from './global/footer/Footer'
 export { default as ContactForm } from './global/contact/ContactForm'
+export { default as Faq } from './global/faq/Faq'
 
 // Home
 export { default as Hero } from './home/hero/Hero'

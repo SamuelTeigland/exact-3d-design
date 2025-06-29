@@ -21,6 +21,7 @@
 
 html {
   background: var(--background);
+  scroll-padding-top: 6rem;
 }
 
 ::-webkit-scrollbar {

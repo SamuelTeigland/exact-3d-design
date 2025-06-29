@@ -1,10 +1,11 @@
-import { OurServices } from '../components/components'
+import { OurServices, Faq } from '../components/components'
 
 function Services() {
 
   return (
     <div>
         <OurServices />
+        <Faq />
     </div>
   )
 }

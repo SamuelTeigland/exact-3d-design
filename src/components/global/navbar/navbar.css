@@ -3,6 +3,7 @@
     top: 0;
     background: var(--accent-background);
     border-bottom: solid 2.5px var(--primary);
+    z-index: 1;
 }
 
 .navbar__container {
