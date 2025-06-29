@@ -36,7 +36,7 @@ export default function OurServices() {
                 <div className="ourServices__subcontainer">
                     <h2>Let’s Build Something Amazing</h2>
                     <p>Whether you need a one-off model or ongoing production support, Exact 3D Design is here to help.</p>
-                    <a href="/" className="ourServices__link">
+                    <a href="http://exact3design.3dlayers.app/" className="ourServices__link">
                         <button className="ourServices__button button__tertiary">Get a Quote</button>
                     </a>
                 </div>

@@ -47,10 +47,10 @@ export default function Benefits() {
                 </div>
             </div>
             <div className="benefits__button--container">
-                <a href="/" className="benefits__button--link">
+                <a href="/contact" className="benefits__button--link">
                     <button className="benefits__button button__primary">Contact Us!</button>
                 </a>
-                <a href="/" className="benefits__button--link">
+                <a href="/about" className="benefits__button--link">
                     <button className="benefits__button button__tertiary">About Us!</button>
                 </a>
             </div>

@@ -11,7 +11,7 @@ export default function Who() {
                 <p className="who__paragraph">
                     Whether you're in engineering, construction, or manufacturing, we provide the expertise and technology to bring your visions to life.
                 </p>
-                <a className='who__link'>
+                <a className='who__link' href='/contact'>
                     <button className="who__button button__primary">Contact Us</button>
                 </a>
             </div>
