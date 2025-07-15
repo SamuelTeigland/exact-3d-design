@@ -4,17 +4,22 @@ const workSamples = [
   {
     title: "Mounts and Widgets",
     description: "Designing mounts and parts that are too difficult or expensive to source.",
-    image: "/images/mounts.jpg",
+    image: "/images/mounts.png",
   },
   {
     title: "Decorations",
     description: "Creating memorable and sentimental decorations for special events.",
-    image: "/images/decoration.jpg",
+    image: "/images/decoration.png",
   },
   {
     title: "Gifts",
     description: "Designing unique gifts for family and friends.",
     image: "/images/gifts.jpg",
+  },
+  {
+    title: "Marine",
+    description: "Parts for boats and marine equipment.",
+    image: "/images/marine.png",
   },
 ];
 export default function Work() {
