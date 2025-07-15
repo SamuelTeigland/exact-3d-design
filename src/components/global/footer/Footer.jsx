@@ -23,6 +23,9 @@ export default function Footer() {
                         <p>
                             All of Delaware, Eastern Maryland, Southeastern Pennsylvania, and South Jersey.
                         </p>
+                        <p>
+                            We ship our products throughout the United States.
+                        </p>
                     </div>
                     <div className='footer__service--container'>
                         <h2>
