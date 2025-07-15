@@ -25,7 +25,7 @@ export default function Navbar() {
                     <Link to="/contact">
                         Contact Us
                     </Link>
-                    <Link to='http://exact3design.3dlayers.app/'>
+                    <Link to='https://shop.exact3design.com/' target="_blank">
                         <button className='button__secondary navbar__button'>
                             Get a quote!
                         </button>
@@ -52,7 +52,7 @@ export default function Navbar() {
                 <Link to="/contact" onClick={ () => { setVisible(!isVisible); } }>
                     Contact Us
                 </Link>
-                <Link id='navbar__special--link' to='http://exact3design.3dlayers.app/' onClick={ () => { setVisible(!isVisible); } }>
+                <Link id='navbar__special--link' target="_blank" to='https://shop.exact3design.com/' onClick={ () => { setVisible(!isVisible); } }>
                     Get a quote!
                 </Link>
 

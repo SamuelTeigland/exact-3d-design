@@ -10,7 +10,7 @@ export default function Hero() {
             <p className='hero__paragraph'>Custom 3D Printing & Design Services <span>That Bring Your Ideas to Life.</span></p>
             <div className='hero__button--container'>
                 <Link className='hero__link'
-                to='http://exact3design.3dlayers.app/'>
+                target="_blank" to='https://shop.exact3design.com/'>
                     <button className='button__secondary hero__button'>Get a quote!</button>
                 </Link>
                 <Link className='hero__link'
