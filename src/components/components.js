@@ -20,3 +20,7 @@ export { default as OurServices } from './services/ourServices/OurServices'
 
 // Our Work
 export { default as Work } from './ourWork/Work'
+
+// Product
+export { default as ProductList } from './products/ProductList'
+export { default as ProductDetail } from './products/ProductDetail'

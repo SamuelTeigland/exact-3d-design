@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Footer } from './components/components.js'
+import { Navbar, Footer, ProductDetail, ProductList } from './components/components.js'
 import { Home, About, Services, Contact, OurWork } from './pages/pages.js'
 import {
   BrowserRouter as Router,
@@ -19,6 +19,8 @@ function App() {
           <Route exact path='/services' element={<Services />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/our-work" element={<OurWork />} />
+          <Route exact path="/product" element={<ProductList />} />
+          <Route exact path="/product/:slug" element={<ProductDetail />} />
         </Routes>
       <Footer />
     </Router>
