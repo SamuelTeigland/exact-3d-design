@@ -4,7 +4,7 @@
   --text: #00040e;
   --accent-background: #a7c0c8;
   --darker-background: #5c79ef;
-  --background: #ecf0ff;
+  --background: #fdecff;
   --primary: #364b9c;
   --secondary: #373535;
   --tertiary: #858abd;
@@ -118,25 +118,25 @@ button {
     border: .15rem solid var(--primary);
     box-shadow: .1rem .1rem 1rem transparent;
   }
-  
+
   .button__primary:hover {
     box-shadow: .1rem .1rem 1rem var(--primary);
   }
-  
+
   .button__secondary {
     border: .15rem solid var(--text);
     box-shadow: .1rem .1rem 1rem transparent;
   }
-  
+
   .button__secondary:hover {
     box-shadow: .1rem .1rem 1rem var(--text);
   }
-  
+
   .button__tertiary {
     border: .15rem solid var(--tertiary);
     box-shadow: .1rem .1rem 1rem transparent;
   }
-  
+
   .button__tertiary:hover {
     box-shadow: .1rem .1rem 1rem var(--tertiary);
   }
@@ -145,7 +145,7 @@ button {
     border: .15rem solid var(--quaternary);
     box-shadow: .1rem .1rem 1rem transparent;
   }
-  
+
   .button__quaternary:hover {
     box-shadow: .1rem .1rem 1rem var(--quaternary);
   }
