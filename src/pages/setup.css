@@ -1,0 +1,273 @@
+.setupPage {
+    max-width: 820px;
+    margin: 24px auto;
+    padding: 16px 12px;
+}
+
+/* Card container */
+.setupCard {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: clamp(14px, 3.5vw, 20px);
+    box-shadow: var(--shadow);
+}
+
+/* Type */
+.setupH1 {
+    margin: 0;
+    font-size: clamp(22px, 5vw, 28px);
+    line-height: 1.15;
+    color: var(--ink);
+}
+
+.setupH2 {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    color: var(--ink);
+}
+
+.setupP {
+    margin-top: 8px;
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+.setupSection {
+    display: grid;
+    gap: 12px;
+}
+
+/* Form layout */
+.setupForm {
+    display: grid;
+    gap: 18px;
+}
+
+/* Responsive 2-col grid */
+.grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* Field */
+.field {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+}
+
+.fieldLabel {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.req {
+    color: #b00020;
+    margin-left: 2px;
+}
+
+/* Inputs/selects: set font-size 16 to prevent iOS zoom */
+.input,
+.select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink);
+    font-size: 16px;
+    outline: none;
+}
+
+.select {
+    appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+        linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) calc(50% - 3px),
+        calc(100% - 12px) calc(50% - 3px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 38px;
+}
+
+/* Focus states */
+.input:focus,
+.select:focus,
+.btn:focus-visible,
+.linkBtn:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    outline-offset: 2px;
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+}
+
+/* Cards section header */
+.sectionHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.headerActions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Card list */
+.cardsList {
+    display: grid;
+    gap: 12px;
+}
+
+.cardItem {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    background: var(--surface-2);
+}
+
+.cardItemTopRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.cardItemTitle {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+/* Buttons */
+.setupActions {
+    margin-top: 6px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.04s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Primary uses your --primary + readable text */
+.btnPrimary {
+    background: var(--primary);
+    color: white;
+    border-color: color-mix(in srgb, var(--primary) 70%, black);
+}
+
+/* Secondary uses a subtle surface */
+.btnSecondary {
+    background: color-mix(in srgb, var(--surface-2) 70%, white);
+    color: var(--ink);
+    border-color: var(--border-strong);
+}
+
+/* Link button */
+.linkBtn {
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: var(--ink);
+    text-decoration: underline;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* Error */
+.setupError {
+    margin-top: 14px;
+    margin-bottom: 14px;
+    color: #8b1020;
+    background: #fff1f2;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid #ffd6db;
+}
+
+/* Notes + separators */
+.setupSmallNote {
+    margin-top: 10px;
+    color: color-mix(in srgb, var(--muted) 75%, transparent);
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.setupHr {
+    height: 1px;
+    background: color-mix(in srgb, var(--border) 70%, transparent);
+    margin: 16px 0;
+}
+
+/* KV grid */
+.setupKvGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.setupK {
+    font-size: 12px;
+    color: color-mix(in srgb, var(--muted) 75%, transparent);
+}
+
+.setupV {
+    font-size: 14px;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+}
+
+.setupTokenList {
+    margin-top: 10px;
+    margin-bottom: 0;
+    padding-left: 18px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .grid2 {
+        grid-template-columns: 1fr;
+    }
+
+    .setupKvGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .headerActions {
+        width: 100%;
+    }
+
+    .setupActions {
+        justify-content: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

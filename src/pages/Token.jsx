@@ -1,6 +1,6 @@
-import './styles/token.css'
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./token.css";
 
 function isValidToken(t) {
     return /^[A-Z0-9]{8,10}$/.test(t);
@@ -29,7 +29,6 @@ export default function Token() {
     const [submitErr, setSubmitErr] = useState("");
     const [submitOk, setSubmitOk] = useState("");
 
-    // NEW: change-link UI state
     const [showChange, setShowChange] = useState(false);
 
     async function fetchCard() {
@@ -76,10 +75,21 @@ export default function Token() {
         return { resp, data };
     }
 
-    async function handleClaim(e) {
-        e.preventDefault();
+    function resetFormMessages() {
         setSubmitErr("");
         setSubmitOk("");
+    }
+
+    function resetChangeUi() {
+        resetFormMessages();
+        setSetupCode("");
+        setLink("");
+        setShowChange(false);
+    }
+
+    async function handleClaim(e) {
+        e.preventDefault();
+        resetFormMessages();
 
         const code = setupCode.trim();
         if (!/^\d{6}$/.test(code)) {
@@ -101,28 +111,19 @@ export default function Token() {
             });
 
             if (!resp.ok) {
-                const msg =
-                    data?.message ||
-                    data?.error ||
-                    "Could not claim this card. Please try again.";
-
+                const msg = data?.message || data?.error || "Could not claim this card. Please try again.";
                 if (data?.locked_until) {
                     setSubmitErr(`${msg} Locked until: ${new Date(data.locked_until).toLocaleString()}`);
                 } else {
                     setSubmitErr(msg);
                 }
-
                 setSubmitLoading(false);
                 return;
             }
 
             setSubmitOk("Claimed successfully.");
             setSubmitLoading(false);
-
-            setSetupCode("");
-            setLink("");
-            setShowChange(false);
-
+            resetChangeUi();
             await fetchCard();
         } catch {
             setSubmitErr("Network error. Please try again.");
@@ -130,11 +131,9 @@ export default function Token() {
         }
     }
 
-    // NEW: Change link submit handler
     async function handleChangeLink(e) {
         e.preventDefault();
-        setSubmitErr("");
-        setSubmitOk("");
+        resetFormMessages();
 
         const code = setupCode.trim();
         if (!/^\d{6}$/.test(code)) {
@@ -156,28 +155,19 @@ export default function Token() {
             });
 
             if (!resp.ok) {
-                const msg =
-                    data?.message ||
-                    data?.error ||
-                    "Could not update the link. Please try again.";
-
+                const msg = data?.message || data?.error || "Could not update the link. Please try again.";
                 if (data?.locked_until) {
                     setSubmitErr(`${msg} Locked until: ${new Date(data.locked_until).toLocaleString()}`);
                 } else {
                     setSubmitErr(msg);
                 }
-
                 setSubmitLoading(false);
                 return;
             }
 
             setSubmitOk("Link updated.");
             setSubmitLoading(false);
-
-            setSetupCode("");
-            setLink("");
-            setShowChange(false);
-
+            resetChangeUi();
             await fetchCard();
         } catch {
             setSubmitErr("Network error. Please try again.");
@@ -185,256 +175,209 @@ export default function Token() {
         }
     }
 
-    // UI helpers
     const waveformId = card?.waveform_template_id;
     const waveSrc = waveformId
         ? `/assets/waves/wave${String(waveformId).padStart(2, "0")}.svg`
         : null;
 
+    const claimed = !!card?.claimed;
+
     if (loading) {
         return (
-            <div style={{ maxWidth: 720, margin: "40px auto", padding: 16 }}>
-                <h1>Loading...</h1>
+            <div className="tokenPage">
+                <div className="tokenCard">
+                    <h1 className="tokenH1">Loading…</h1>
+                </div>
             </div>
         );
     }
 
     if (fetchErr) {
         return (
-            <div style={{ maxWidth: 720, margin: "40px auto", padding: 16 }}>
-                <h1>Something went wrong</h1>
-                <p>{fetchErr}</p>
+            <div className="tokenPage">
+                <div className="tokenCard">
+                    <header className="tokenHeader">
+                        <h1 className="tokenH1">Something went wrong</h1>
+                        <p className="tokenP">{fetchErr}</p>
+                    </header>
+                </div>
             </div>
         );
     }
 
-    const claimed = !!card?.claimed;
-
     return (
-        <div style={{ maxWidth: 720, margin: "40px auto", padding: 16 }}>
-            <header style={{ marginBottom: 20 }}>
-                <h1 style={{ margin: 0 }}>Exact 3D Design</h1>
-                <p style={{ marginTop: 6, color: "#555" }}>
-                    {claimed ? "Player Page" : "Activate your card"}
-                </p>
-            </header>
+        <div className="tokenPage">
+            <div className="tokenCard">
+                <header className="tokenHeader">
+                    <h1 className="tokenBrand">Exact 3D Design</h1>
+                    <p className="tokenSub">{claimed ? "Player Page" : "Activate your card"}</p>
+                </header>
 
-            {/* Decorative Wave */}
-            {waveSrc && (
-                <div
-                    style={{
-                        border: "1px solid #eee",
-                        borderRadius: 12,
-                        padding: 16,
-                        marginBottom: 20,
-                        background: "#fafafa",
-                    }}
-                >
-                    <img
-                        src={waveSrc}
-                        alt={`Wave template ${waveformId}`}
-                        style={{ width: "100%", height: "auto", display: "block" }}
-                        onError={(e) => {
-                            e.currentTarget.style.display = "none";
-                        }}
-                    />
-                </div>
-            )}
-
-            {!claimed ? (
-                <>
-                    <section style={{ marginBottom: 12 }}>
-                        <h2 style={{ margin: "0 0 8px 0" }}>Claim this page</h2>
-                        <p style={{ margin: "0 0 16px 0", color: "#555" }}>
-                            Enter your 6-digit setup code and paste your link (unlisted YouTube recommended).
-                        </p>
-                    </section>
-
-                    <form onSubmit={handleClaim} style={{ display: "grid", gap: 12 }}>
-                        <label style={styles.label}>
-                            <span>Setup code</span>
-                            <input
-                                value={setupCode}
-                                onChange={(e) => setSetupCode(e.target.value)}
-                                inputMode="numeric"
-                                placeholder="123456"
-                                maxLength={6}
-                                style={styles.input}
-                            />
-                        </label>
-
-                        <label style={styles.label}>
-                            <span>Link (YouTube or direct audio)</span>
-                            <input
-                                value={link}
-                                onChange={(e) => setLink(e.target.value)}
-                                placeholder="https://youtu.be/VIDEOID or https://example.com/audio.mp3"
-                                style={styles.input}
-                            />
-                        </label>
-
-                        {submitErr && <div style={styles.errorBox}>{submitErr}</div>}
-                        {submitOk && <div style={styles.okBox}>{submitOk}</div>}
-
-                        <button type="submit" disabled={submitLoading} style={styles.primaryBtn}>
-                            {submitLoading ? "Claiming..." : "Claim"}
-                        </button>
-                    </form>
-                </>
-            ) : (
-                <>
-                    <section style={{ marginBottom: 12 }}>
-                        <h2 style={{ margin: "0 0 8px 0" }}>Now playing</h2>
-                    </section>
-
-                    {card?.link?.type === "youtube" && card?.link?.youtube_id ? (
-                        <div
-                            style={{
-                                position: "relative",
-                                paddingTop: "56.25%",
-                                borderRadius: 12,
-                                overflow: "hidden",
+                {waveSrc && (
+                    <div className="wavePanel" aria-hidden="true">
+                        <img
+                            src={waveSrc}
+                            alt={`Wave template ${waveformId}`}
+                            className="waveImg"
+                            onError={(e) => {
+                                e.currentTarget.style.display = "none";
                             }}
-                        >
-                            <iframe
-                                src={youtubeEmbedUrl(card.link.youtube_id)}
-                                title="YouTube player"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    width: "100%",
-                                    height: "100%",
-                                    border: 0,
-                                }}
-                            />
-                        </div>
-                    ) : card?.link?.type === "audio" && card?.link?.url ? (
-                        <audio controls src={card.link.url} style={{ width: "100%" }} />
-                    ) : (
-                        <div style={styles.errorBox}>
-                            This page is claimed, but the stored link is missing or invalid.
-                        </div>
-                    )}
+                        />
+                    </div>
+                )}
 
-                    {/* NEW: Change link UI */}
-                    <div style={{ marginTop: 16 }}>
-                        {!showChange ? (
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setSubmitErr("");
-                                    setSubmitOk("");
-                                    setSetupCode("");
-                                    setLink("");
-                                    setShowChange(true);
-                                }}
-                                style={styles.secondaryBtn}
-                            >
-                                Change link
-                            </button>
-                        ) : (
-                            <div style={{ marginTop: 10 }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                    <h3 style={{ margin: "0 0 10px 0" }}>Change link</h3>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setShowChange(false);
-                                            setSubmitErr("");
-                                            setSubmitOk("");
-                                            setSetupCode("");
-                                            setLink("");
-                                        }}
-                                        style={styles.linkBtn}
-                                    >
-                                        Cancel
-                                    </button>
+                {!claimed ? (
+                    <>
+                        <section className="tokenSection">
+                            <h2 className="tokenH2">Claim this page</h2>
+                            <p className="tokenP">
+                                Enter your 6-digit setup code and paste your link (unlisted YouTube recommended).
+                            </p>
+                        </section>
+
+                        <form onSubmit={handleClaim} className="tokenForm">
+                            <label className="field">
+                                <span className="fieldLabel">Setup code</span>
+                                <input
+                                    value={setupCode}
+                                    onChange={(e) => setSetupCode(e.target.value)}
+                                    inputMode="numeric"
+                                    placeholder="123456"
+                                    maxLength={6}
+                                    className="input"
+                                    autoComplete="one-time-code"
+                                />
+                            </label>
+
+                            <label className="field">
+                                <span className="fieldLabel">Link (YouTube or direct audio)</span>
+                                <input
+                                    value={link}
+                                    onChange={(e) => setLink(e.target.value)}
+                                    placeholder="https://youtu.be/VIDEOID or https://example.com/audio.mp3"
+                                    className="input"
+                                    autoCapitalize="none"
+                                    autoCorrect="off"
+                                />
+                            </label>
+
+                            {submitErr && (
+                                <div className="notice noticeError" role="alert" aria-live="polite">
+                                    {submitErr}
                                 </div>
+                            )}
+                            {submitOk && (
+                                <div className="notice noticeOk" role="status" aria-live="polite">
+                                    {submitOk}
+                                </div>
+                            )}
 
-                                <form onSubmit={handleChangeLink} style={{ display: "grid", gap: 12 }}>
-                                    <label style={styles.label}>
-                                        <span>Setup code</span>
-                                        <input
-                                            value={setupCode}
-                                            onChange={(e) => setSetupCode(e.target.value)}
-                                            inputMode="numeric"
-                                            placeholder="123456"
-                                            maxLength={6}
-                                            style={styles.input}
-                                        />
-                                    </label>
+                            <div className="actions">
+                                <button type="submit" className="btn btnPrimary" disabled={submitLoading}>
+                                    {submitLoading ? "Claiming…" : "Claim"}
+                                </button>
+                            </div>
+                        </form>
+                    </>
+                ) : (
+                    <>
+                        <section className="tokenSection">
+                            <h2 className="tokenH2">Now playing</h2>
+                        </section>
 
-                                    <label style={styles.label}>
-                                        <span>New link</span>
-                                        <input
-                                            value={link}
-                                            onChange={(e) => setLink(e.target.value)}
-                                            placeholder="https://youtu.be/VIDEOID or https://example.com/audio.mp3"
-                                            style={styles.input}
-                                        />
-                                    </label>
-
-                                    {submitErr && <div style={styles.errorBox}>{submitErr}</div>}
-                                    {submitOk && <div style={styles.okBox}>{submitOk}</div>}
-
-                                    <button type="submit" disabled={submitLoading} style={styles.primaryBtn}>
-                                        {submitLoading ? "Updating..." : "Update link"}
-                                    </button>
-                                </form>
+                        {card?.link?.type === "youtube" && card?.link?.youtube_id ? (
+                            <div className="playerFrame">
+                                <iframe
+                                    src={youtubeEmbedUrl(card.link.youtube_id)}
+                                    title="YouTube player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    className="iframe"
+                                />
+                            </div>
+                        ) : card?.link?.type === "audio" && card?.link?.url ? (
+                            <audio controls src={card.link.url} className="audio" />
+                        ) : (
+                            <div className="notice noticeError">
+                                This page is claimed, but the stored link is missing or invalid.
                             </div>
                         )}
-                    </div>
-                </>
-            )}
+
+                        <div className="changeWrap">
+                            {!showChange ? (
+                                <button
+                                    type="button"
+                                    className="btn btnSecondary"
+                                    onClick={() => {
+                                        resetFormMessages();
+                                        setSetupCode("");
+                                        setLink("");
+                                        setShowChange(true);
+                                    }}
+                                >
+                                    Change link
+                                </button>
+                            ) : (
+                                <div className="changePanel">
+                                    <div className="changeHeader">
+                                        <h3 className="tokenH3">Change link</h3>
+                                        <button type="button" className="linkBtn" onClick={resetChangeUi}>
+                                            Cancel
+                                        </button>
+                                    </div>
+
+                                    <form onSubmit={handleChangeLink} className="tokenForm">
+                                        <label className="field">
+                                            <span className="fieldLabel">Setup code</span>
+                                            <input
+                                                value={setupCode}
+                                                onChange={(e) => setSetupCode(e.target.value)}
+                                                inputMode="numeric"
+                                                placeholder="123456"
+                                                maxLength={6}
+                                                className="input"
+                                                autoComplete="one-time-code"
+                                            />
+                                        </label>
+
+                                        <label className="field">
+                                            <span className="fieldLabel">New link</span>
+                                            <input
+                                                value={link}
+                                                onChange={(e) => setLink(e.target.value)}
+                                                placeholder="https://youtu.be/VIDEOID or https://example.com/audio.mp3"
+                                                className="input"
+                                                autoCapitalize="none"
+                                                autoCorrect="off"
+                                            />
+                                        </label>
+
+                                        {submitErr && (
+                                            <div className="notice noticeError" role="alert" aria-live="polite">
+                                                {submitErr}
+                                            </div>
+                                        )}
+                                        {submitOk && (
+                                            <div className="notice noticeOk" role="status" aria-live="polite">
+                                                {submitOk}
+                                            </div>
+                                        )}
+
+                                        <div className="actions actionsSplit">
+                                            <button type="submit" className="btn btnPrimary" disabled={submitLoading}>
+                                                {submitLoading ? "Updating…" : "Update link"}
+                                            </button>
+                                            <button type="button" className="btn btnSecondary" onClick={resetChangeUi}>
+                                                Close
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            )}
+                        </div>
+                    </>
+                )}
+            </div>
         </div>
     );
 }
-
-const styles = {
-    label: { display: "grid", gap: 6 },
-    input: {
-        padding: 12,
-        borderRadius: 10,
-        border: "1px solid #ccc",
-        fontSize: 16,
-    },
-    primaryBtn: {
-        padding: 12,
-        borderRadius: 10,
-        border: "none",
-        cursor: "pointer",
-        fontSize: 16,
-    },
-    secondaryBtn: {
-        padding: "10px 14px",
-        borderRadius: 10,
-        border: "1px solid #ddd",
-        background: "#fff",
-        cursor: "pointer",
-        fontSize: 14,
-    },
-    linkBtn: {
-        border: "none",
-        background: "transparent",
-        color: "#555",
-        textDecoration: "underline",
-        cursor: "pointer",
-        fontSize: 13,
-        padding: 0,
-    },
-    errorBox: {
-        color: "#b00020",
-        background: "#fff1f2",
-        padding: 12,
-        borderRadius: 10,
-    },
-    okBox: {
-        color: "#0a7a2f",
-        background: "#ecfdf3",
-        padding: 12,
-        borderRadius: 10,
-    },
-};

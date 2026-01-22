@@ -4,12 +4,22 @@
   --text: #00040e;
   --accent-background: #a7c0c8;
   --darker-background: #5c79ef;
-  --background: #fdecff;
+  --background: #e6ebff;
   --primary: #364b9c;
   --secondary: #373535;
   --tertiary: #858abd;
   --accent: #00a759;
   --secondary-accent: #659e81;
+
+  --surface: var(--accent-background);
+  --surface-2: var(--background);
+  --ink: var(--text);
+  --muted: var(--secondary);
+  --border: color-mix(in srgb, var(--tertiary) 55%, transparent);
+  --border-strong: color-mix(in srgb, var(--tertiary) 80%, transparent);
+  --shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  --radius: 14px;
+  --radius-sm: 10px;
 }
 
 * {

@@ -1,5 +1,5 @@
-import './styles/setUp.css'
 import { useMemo, useState } from "react";
+import "./setup.css";
 
 const MAX_CARDS = 10;
 
@@ -30,7 +30,6 @@ export default function SetUp() {
     });
 
     const [cards, setCards] = useState([emptyCard()]);
-
     const [submitting, setSubmitting] = useState(false);
     const [err, setErr] = useState("");
     const [success, setSuccess] = useState(null); // { order_id, card_count, tokens: [] }
@@ -103,9 +102,7 @@ export default function SetUp() {
                         country: buyer.address.country.trim() || "US",
                     },
                 },
-                cards: cards.map((c) => ({
-                    waveform: c.waveform,
-                })),
+                cards: cards.map((c) => ({ waveform: c.waveform })),
             };
 
             const resp = await fetch("/api/setup", {
@@ -122,8 +119,6 @@ export default function SetUp() {
                 return;
             }
 
-            // For dev/testing, your backend returns tokens + setup_code.
-            // Do NOT show setup codes to customers in production.
             const tokens = Array.isArray(data?.cards) ? data.cards.map((c) => c.token) : [];
 
             setSuccess({
@@ -133,41 +128,64 @@ export default function SetUp() {
             });
 
             setSubmitting(false);
-        } catch (e2) {
+        } catch {
             setErr("Network error. Please try again.");
             setSubmitting(false);
         }
     }
 
+    function resetForm() {
+        setSuccess(null);
+        setErr("");
+        setCards([emptyCard()]);
+        setBuyer({
+            name: "",
+            email: "",
+            phone: "",
+            etsyOrderNumber: "",
+            address: {
+                line1: "",
+                line2: "",
+                city: "",
+                state: "",
+                zip: "",
+                country: "US",
+            },
+        });
+    }
+
     if (success) {
         return (
-            <div style={styles.page}>
-                <div style={styles.card}>
-                    <h1 style={styles.h1}>Submitted</h1>
-                    <p style={styles.p}>
+            <div className="setupPage">
+                <div className="setupCard">
+                    <h1 className="setupH1">Submitted</h1>
+                    <p className="setupP">
                         Thanks — your setup info has been received. We’ll use it to produce your plaque/card.
                     </p>
 
-                    <div style={styles.hr} />
+                    <div className="setupHr" />
 
-                    <div style={styles.kvGrid}>
-                        <div>
-                            <div style={styles.k}>Order ID</div>
-                            <div style={styles.v}><code>{success.order_id}</code></div>
+                    <div className="setupKvGrid">
+                        <div className="setupKv">
+                            <div className="setupK">Order ID</div>
+                            <div className="setupV">
+                                <code>{success.order_id}</code>
+                            </div>
                         </div>
-                        <div>
-                            <div style={styles.k}>Cards</div>
-                            <div style={styles.v}>{success.card_count}</div>
+                        <div className="setupKv">
+                            <div className="setupK">Cards</div>
+                            <div className="setupV">{success.card_count}</div>
                         </div>
                     </div>
 
                     {success.tokens.length > 0 && (
                         <>
-                            <div style={styles.hr} />
-                            <div style={styles.smallNote}>
-                                Dev note: tokens are shown for testing. Don’t show these to customers unless you intend to.
+                            <div className="setupHr" />
+                            <div className="setupSmallNote">
+                                Dev note: tokens are shown for testing. Don’t show these to customers unless you intend
+                                to.
                             </div>
-                            <ul style={styles.tokenList}>
+                            <ul className="setupTokenList">
                                 {success.tokens.map((t) => (
                                     <li key={t}>
                                         <code>{t}</code> — <a href={`/v/${t}`}>open page</a>
@@ -177,30 +195,8 @@ export default function SetUp() {
                         </>
                     )}
 
-                    <div style={styles.actionsRow}>
-                        <button
-                            type="button"
-                            style={styles.secondaryBtn}
-                            onClick={() => {
-                                setSuccess(null);
-                                setErr("");
-                                setCards([emptyCard()]);
-                                setBuyer({
-                                    name: "",
-                                    email: "",
-                                    phone: "",
-                                    etsyOrderNumber: "",
-                                    address: {
-                                        line1: "",
-                                        line2: "",
-                                        city: "",
-                                        state: "",
-                                        zip: "",
-                                        country: "US",
-                                    },
-                                });
-                            }}
-                        >
+                    <div className="setupActions">
+                        <button type="button" className="btn btnSecondary" onClick={resetForm}>
                             Create another
                         </button>
                     </div>
@@ -210,20 +206,24 @@ export default function SetUp() {
     }
 
     return (
-        <div style={styles.page}>
-            <div style={styles.card}>
-                <h1 style={styles.h1}>Setup</h1>
-                <p style={styles.p}>
+        <div className="setupPage">
+            <div className="setupCard">
+                <h1 className="setupH1">Setup</h1>
+                <p className="setupP">
                     Enter your details and create one or more cards. You can add up to {MAX_CARDS}.
                 </p>
 
-                {err && <div style={styles.errorBox}>{err}</div>}
+                {err && (
+                    <div className="setupError" role="alert" aria-live="polite">
+                        {err}
+                    </div>
+                )}
 
-                <form onSubmit={handleSubmit} style={{ display: "grid", gap: 18 }}>
-                    <section>
-                        <h2 style={styles.h2}>Buyer info</h2>
+                <form onSubmit={handleSubmit} className="setupForm">
+                    <section className="setupSection">
+                        <h2 className="setupH2">Buyer info</h2>
 
-                        <div style={styles.grid2}>
+                        <div className="grid2">
                             <Field
                                 label="Buyer name"
                                 value={buyer.name}
@@ -243,6 +243,7 @@ export default function SetUp() {
                                 value={buyer.phone}
                                 onChange={(v) => updateBuyer("phone", v)}
                                 placeholder="555-555-5555"
+                                inputMode="tel"
                             />
                             <Field
                                 label="Etsy order # (optional)"
@@ -253,10 +254,10 @@ export default function SetUp() {
                         </div>
                     </section>
 
-                    <section>
-                        <h2 style={styles.h2}>Shipping address</h2>
+                    <section className="setupSection">
+                        <h2 className="setupH2">Shipping address</h2>
 
-                        <div style={styles.grid2}>
+                        <div className="grid2">
                             <Field
                                 label="Address line 1"
                                 value={buyer.address.line1}
@@ -274,22 +275,23 @@ export default function SetUp() {
                                 label="City"
                                 value={buyer.address.city}
                                 onChange={(v) => updateAddress("city", v)}
-                                placeholder="Nashville"
+                                placeholder="New York"
                                 required
                             />
                             <Field
                                 label="State"
                                 value={buyer.address.state}
                                 onChange={(v) => updateAddress("state", v)}
-                                placeholder="TN"
+                                placeholder="NY"
                                 required
                             />
                             <Field
                                 label="ZIP"
                                 value={buyer.address.zip}
                                 onChange={(v) => updateAddress("zip", v)}
-                                placeholder="37201"
+                                placeholder="12345"
                                 required
+                                inputMode="numeric"
                             />
                             <Field
                                 label="Country"
@@ -301,47 +303,39 @@ export default function SetUp() {
                         </div>
                     </section>
 
-                    <section>
-                        <div style={styles.sectionHeaderRow}>
-                            <h2 style={styles.h2}>Cards</h2>
-                            <div style={{ display: "flex", gap: 8 }}>
+                    <section className="setupSection">
+                        <div className="sectionHeaderRow">
+                            <h2 className="setupH2">Cards</h2>
+                            <div className="headerActions">
                                 <button
                                     type="button"
+                                    className="btn btnSecondary"
                                     onClick={addCard}
                                     disabled={!canAddMore}
-                                    style={{
-                                        ...styles.secondaryBtn,
-                                        opacity: canAddMore ? 1 : 0.5,
-                                        cursor: canAddMore ? "pointer" : "not-allowed",
-                                    }}
                                 >
                                     Add another
                                 </button>
                             </div>
                         </div>
 
-                        <div style={{ display: "grid", gap: 12 }}>
+                        <div className="cardsList">
                             {cards.map((card, idx) => (
-                                <div key={idx} style={styles.cardItem}>
-                                    <div style={styles.cardItemTopRow}>
-                                        <div style={{ fontWeight: 600 }}>Card {idx + 1}</div>
+                                <div key={idx} className="cardItem">
+                                    <div className="cardItemTopRow">
+                                        <div className="cardItemTitle">Card {idx + 1}</div>
                                         {cards.length > 1 && (
-                                            <button
-                                                type="button"
-                                                onClick={() => removeCard(idx)}
-                                                style={styles.linkBtn}
-                                            >
+                                            <button type="button" className="linkBtn" onClick={() => removeCard(idx)}>
                                                 Remove
                                             </button>
                                         )}
                                     </div>
 
-                                    <label style={styles.label}>
-                                        <span style={styles.labelText}>Waveform template</span>
+                                    <label className="field">
+                                        <span className="fieldLabel">Waveform template</span>
                                         <select
                                             value={card.waveform}
                                             onChange={(e) => updateCard(idx, { waveform: e.target.value })}
-                                            style={styles.select}
+                                            className="select"
                                         >
                                             <option value="random">Random / Surprise me</option>
                                             {Array.from({ length: 10 }).map((_, i) => {
@@ -358,21 +352,14 @@ export default function SetUp() {
                             ))}
                         </div>
 
-                        <div style={styles.smallNote}>
-                            Max {MAX_CARDS} cards per order. If someone needs more, handle as a bulk order manually later.
+                        <div className="setupSmallNote">
+                            Max {MAX_CARDS} cards per order. If someone needs more, handle as a bulk order manually
+                            later.
                         </div>
                     </section>
 
-                    <div style={styles.actionsRow}>
-                        <button
-                            type="submit"
-                            disabled={submitting}
-                            style={{
-                                ...styles.primaryBtn,
-                                opacity: submitting ? 0.7 : 1,
-                                cursor: submitting ? "not-allowed" : "pointer",
-                            }}
-                        >
+                    <div className="setupActions">
+                        <button type="submit" className="btn btnPrimary" disabled={submitting}>
                             {submitting ? "Submitting..." : "Submit"}
                         </button>
                     </div>
@@ -382,143 +369,28 @@ export default function SetUp() {
     );
 }
 
-function Field({ label, value, onChange, placeholder, required = false }) {
+function Field({
+    label,
+    value,
+    onChange,
+    placeholder,
+    required = false,
+    inputMode,
+}) {
     return (
-        <label style={styles.label}>
-            <span style={styles.labelText}>
-                {label} {required ? <span style={{ color: "#b00020" }}>*</span> : null}
+        <label className="field">
+            <span className="fieldLabel">
+                {label} {required ? <span className="req">*</span> : null}
             </span>
             <input
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
-                style={styles.input}
+                className="input"
+                autoCapitalize="none"
+                autoCorrect="off"
+                inputMode={inputMode}
             />
         </label>
     );
 }
-
-const styles = {
-    page: {
-        maxWidth: 820,
-        margin: "40px auto",
-        padding: 16,
-    },
-    card: {
-        border: "1px solid #eee",
-        borderRadius: 14,
-        padding: 20,
-        background: "#fff",
-    },
-    h1: { margin: 0, fontSize: 28 },
-    h2: { margin: "0 0 12px 0", fontSize: 18 },
-    p: { marginTop: 8, color: "#555", lineHeight: 1.5 },
-
-    grid2: {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 12,
-    },
-
-    label: { display: "grid", gap: 6 },
-    labelText: { fontSize: 14, color: "#333" },
-
-    input: {
-        padding: 12,
-        borderRadius: 10,
-        border: "1px solid #ccc",
-        fontSize: 15,
-        outline: "none",
-    },
-
-    select: {
-        padding: 12,
-        borderRadius: 10,
-        border: "1px solid #ccc",
-        fontSize: 15,
-        background: "#fff",
-    },
-
-    sectionHeaderRow: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginBottom: 10,
-    },
-
-    cardItem: {
-        border: "1px solid #eee",
-        borderRadius: 12,
-        padding: 14,
-        background: "#fafafa",
-    },
-    cardItemTopRow: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 10,
-    },
-
-    actionsRow: { marginTop: 6, display: "flex", gap: 10, justifyContent: "flex-end" },
-
-    primaryBtn: {
-        padding: "12px 16px",
-        borderRadius: 10,
-        border: "none",
-        fontSize: 15,
-    },
-    secondaryBtn: {
-        padding: "10px 14px",
-        borderRadius: 10,
-        border: "1px solid #ddd",
-        background: "#fff",
-        fontSize: 14,
-    },
-    linkBtn: {
-        border: "none",
-        background: "transparent",
-        color: "#555",
-        textDecoration: "underline",
-        cursor: "pointer",
-        fontSize: 13,
-        padding: 0,
-    },
-
-    errorBox: {
-        marginTop: 14,
-        marginBottom: 14,
-        color: "#b00020",
-        background: "#fff1f2",
-        padding: 12,
-        borderRadius: 10,
-        border: "1px solid #ffd6db",
-    },
-
-    smallNote: {
-        marginTop: 10,
-        color: "#666",
-        fontSize: 13,
-        lineHeight: 1.4,
-    },
-
-    hr: {
-        height: 1,
-        background: "#eee",
-        margin: "16px 0",
-    },
-
-    kvGrid: {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 12,
-    },
-    k: { fontSize: 12, color: "#666" },
-    v: { fontSize: 14 },
-
-    tokenList: {
-        marginTop: 10,
-        marginBottom: 0,
-        paddingLeft: 18,
-        lineHeight: 1.7,
-    },
-};
