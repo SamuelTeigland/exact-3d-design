@@ -107,10 +107,9 @@ export default function Token() {
 
         setSubmitLoading(true);
         try {
-            const { resp, data } = await postJson(`/api/cards/${token}/change-link`, {
+            const { resp, data } = await postJson(`/api/cards/${token}/claim`, {
                 setup_code: code,
                 link: url,
-                message, // NEW
             });
 
             if (!resp.ok) {
