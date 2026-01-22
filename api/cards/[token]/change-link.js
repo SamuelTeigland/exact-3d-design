@@ -95,6 +95,7 @@ export default async function handler(req, res) {
         const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
         const setupCode = String(body?.setup_code ?? "").trim();
         const link = body?.link;
+        const message = typeof body?.message === "string" ? body.message.trim() : null;
 
         if (!setupCode || !/^\d{6}$/.test(setupCode)) {
             return res.status(400).json({ error: "Please enter the 6-digit setup code." });
@@ -171,10 +172,13 @@ export default async function handler(req, res) {
             link_type: linkParsed.link_type,
             youtube_id: linkParsed.youtube_id,
             destination_url: linkParsed.destination_url,
+
+            // NEW: update message if provided (allow clearing by sending empty string)
+            ...(message !== null ? { message: message || null } : {}),
+
             setup_code_attempts: 0,
             setup_code_locked_until: null,
-            // claimed_at remains unchanged; updated_at trigger will update
-            updated_at: nowIso(), // harmless even with trigger; ensures change is recorded
+            updated_at: nowIso(),
         };
 
         const { data: updated, error: updateErr } = await supabase

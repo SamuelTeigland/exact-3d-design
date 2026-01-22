@@ -249,6 +249,16 @@
     overflow-wrap: anywhere;
 }
 
+.textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    resize: vertical;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 /* Mobile */
 @media (max-width: 640px) {
     .grid2 {

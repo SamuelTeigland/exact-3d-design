@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         const { data: card, error } = await supabase
             .from("cards")
             .select(
-                "token,waveform_template_id,link_type,youtube_id,destination_url,claimed_at"
+                "token,waveform_template_id,message,link_type,youtube_id,destination_url,claimed_at"
             )
             .eq("token", token)
             .maybeSingle();
@@ -49,6 +49,7 @@ export default async function handler(req, res) {
             token: card.token,
             waveform_template_id: card.waveform_template_id,
             claimed,
+            message: claimed ? (card.message || null) : null,
             link: claimed
                 ? card.link_type === "youtube"
                     ? { type: "youtube", youtube_id: card.youtube_id }

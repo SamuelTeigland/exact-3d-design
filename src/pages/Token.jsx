@@ -24,6 +24,7 @@ export default function Token() {
 
     const [setupCode, setSetupCode] = useState("");
     const [link, setLink] = useState("");
+    const [message, setMessage] = useState("");
 
     const [submitLoading, setSubmitLoading] = useState(false);
     const [submitErr, setSubmitErr] = useState("");
@@ -85,6 +86,7 @@ export default function Token() {
         setSetupCode("");
         setLink("");
         setShowChange(false);
+        setMessage("");
     }
 
     async function handleClaim(e) {
@@ -105,9 +107,10 @@ export default function Token() {
 
         setSubmitLoading(true);
         try {
-            const { resp, data } = await postJson(`/api/cards/${token}/claim`, {
+            const { resp, data } = await postJson(`/api/cards/${token}/change-link`, {
                 setup_code: code,
                 link: url,
+                message, // NEW
             });
 
             if (!resp.ok) {
@@ -285,6 +288,22 @@ export default function Token() {
                             <h2 className="tokenH2">Now playing</h2>
                         </section>
 
+                        {card?.message && (
+                            <div
+                                style={{
+                                    marginBottom: 14,
+                                    padding: 12,
+                                    border: "1px solid #eee",
+                                    borderRadius: 10,
+                                    background: "#fafafa",
+                                    whiteSpace: "pre-wrap",
+                                    lineHeight: 1.5
+                                }}
+                            >
+                                {card.message}
+                            </div>
+                        )}
+
                         {card?.link?.type === "youtube" && card?.link?.youtube_id ? (
                             <div className="playerFrame">
                                 <iframe
@@ -309,9 +328,11 @@ export default function Token() {
                                     type="button"
                                     className="btn btnSecondary"
                                     onClick={() => {
-                                        resetFormMessages();
+                                        setSubmitErr("");
+                                        setSubmitOk("");
                                         setSetupCode("");
                                         setLink("");
+                                        setMessage(card?.message || ""); // NEW: prefill current message
                                         setShowChange(true);
                                     }}
                                 >
@@ -349,6 +370,23 @@ export default function Token() {
                                                 className="input"
                                                 autoCapitalize="none"
                                                 autoCorrect="off"
+                                            />
+                                        </label>
+
+                                        <label style={styles.label}>
+                                            <span>Message (optional)</span>
+                                            <textarea
+                                                value={message}
+                                                onChange={(e) => setMessage(e.target.value)}
+                                                placeholder="Update the message shown on this page..."
+                                                rows={3}
+                                                style={{
+                                                    padding: 12,
+                                                    borderRadius: 10,
+                                                    border: "1px solid #ccc",
+                                                    fontSize: 16,
+                                                    resize: "vertical",
+                                                }}
                                             />
                                         </label>
 

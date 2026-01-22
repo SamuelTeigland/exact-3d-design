@@ -4,7 +4,7 @@ import "./setup.css";
 const MAX_CARDS = 10;
 
 function emptyCard() {
-    return { waveform: "random" }; // message intentionally omitted per your current spec
+    return { waveform: "random", message: "" }; // message intentionally omitted per your current spec
 }
 
 function isEmail(v) {
@@ -102,7 +102,10 @@ export default function SetUp() {
                         country: buyer.address.country.trim() || "US",
                     },
                 },
-                cards: cards.map((c) => ({ waveform: c.waveform })),
+                cards: cards.map((c) => ({
+                    waveform: c.waveform,
+                    message: (c.message || "").trim() || null,
+                })),
             };
 
             const resp = await fetch("/api/setup", {
@@ -347,6 +350,16 @@ export default function SetUp() {
                                                 );
                                             })}
                                         </select>
+                                    </label>
+                                    <label className="field">
+                                        <span className="fieldLabel">Message to display on the page (optional)</span>
+                                        <textarea
+                                            value={card.message || ""}
+                                            onChange={(e) => updateCard(idx, { message: e.target.value })}
+                                            placeholder="Write a short message for the recipient..."
+                                            className="textarea"
+                                            rows={3}
+                                        />
                                     </label>
                                 </div>
                             ))}
