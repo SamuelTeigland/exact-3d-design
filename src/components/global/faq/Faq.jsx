@@ -47,7 +47,7 @@ const faqData = [
     question: 'What is the maximum print size you can accommodate?',
     answer: (
       <p>
-        We can produce parts up to 256mm x 256mm x 256mm in a single build. Larger items can be printed in sections and joined using advanced bonding techniques for structural integrity.
+        We can produce parts up to 340mm x 340mm x 340mm in a single build. Larger items can be printed in sections and joined using advanced bonding techniques for structural integrity.
       </p>
     )
   },
