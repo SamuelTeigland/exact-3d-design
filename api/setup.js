@@ -269,7 +269,7 @@ export default async function handler(req, res) {
         // console.log("PRODUCTION_EMAIL_TO runtime =", JSON.stringify(PRODUCTION_EMAIL_TO));
 
         await sendProductionEmail({
-            to: ["samuelteigland@websiteartificers.com", "bill@exact3design.com"],
+            to: "samuelteigland@websiteartificers.com",
             subject: `Production Pack Ready — Order ${orderId}`,
             html,
         });
