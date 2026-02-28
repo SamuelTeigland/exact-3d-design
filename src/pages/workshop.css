@@ -1,0 +1,114 @@
+/* src/pages/workshop.css */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+.workshop-page {
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% -10%, #659e81 0, transparent 30%),
+    radial-gradient(circle at 100% 20%, #cce3ff 0, transparent 35%),
+    var(--bg);
+  padding: 3rem 1.25rem 5rem;
+}
+
+.hero,
+.section {
+  max-width: 1080px;
+  margin: 0 auto 2.25rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 30px rgba(16, 42, 67, 0.06);
+}
+
+.kicker {
+  font-family: "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: var(--accent-dark);
+  margin: 0 0 0.5rem;
+}
+
+h1 {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.08;
+}
+
+h2 {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+}
+
+h3 {
+  margin: 0.25rem 0 0.8rem;
+  font-size: 1.18rem;
+}
+
+h3 span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+p {
+  margin: 0 0 0.8rem;
+  line-height: 1.6;
+}
+
+.lifecycle {
+  margin: 0.75rem 0 0;
+  padding-left: 1.15rem;
+}
+
+.lifecycle li {
+  margin: 0.35rem 0;
+  color: var(--muted);
+}
+
+.printer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 1rem;
+}
+
+.printer-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  background: linear-gradient(180deg, #ffffff, #fbf9f4);
+}
+
+.printer-name {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent-dark);
+  background: #a7c0c8;
+  border: 1px solid #659e81;
+  border-radius: 999px;
+  padding: 0.22rem 0.58rem;
+  margin: 0 0 0.55rem;
+}
+
+.outro {
+  border-left: 6px solid var(--accent);
+}
+
+@media (max-width: 640px) {
+  .workshop-page {
+    padding: 2rem 0.8rem 3rem;
+  }
+
+  .hero,
+  .section {
+    padding: 1.1rem;
+    border-radius: 14px;
+  }
+}
