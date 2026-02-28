@@ -28,6 +28,9 @@ export default function Navbar() {
                     <Link to="/product">
                         Products
                     </Link>
+                    <Link to="/workshop">
+                        Workshop
+                    </Link>
                     <Link to='https://shop.exact3design.com/' target="_blank">
                         <button className='button__secondary navbar__button'>
                             Get a quote!
@@ -57,6 +60,9 @@ export default function Navbar() {
                 </Link>
                 <Link to="/product" onClick={ () => { setVisible(!isVisible); } }>
                     Products
+                </Link>
+                <Link to="/workshop" onClick={ () => { setVisible(!isVisible); } }>
+                    Workshop
                 </Link>
                 <Link id='navbar__special--link' target="_blank" to='https://shop.exact3design.com/' onClick={ () => { setVisible(!isVisible); } }>
                     Get a quote!
